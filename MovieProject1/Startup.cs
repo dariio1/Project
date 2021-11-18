@@ -2,11 +2,15 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MovieProject1.Data;
+using MovieProject1.Data.Model;
+using MovieProject1.Data.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +20,11 @@ namespace MovieProject1
 {
     public class Startup
     {
+        public string ConnectionString { get; set; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            ConnectionString = Configuration.GetConnectionString("DefaultConnectionString");
         }
 
         public IConfiguration Configuration { get; }
@@ -28,6 +34,16 @@ namespace MovieProject1
         {
 
             services.AddControllers();
+
+            //Database
+            services.AddDbContext<AppDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+            );
+            //services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConnectionString));
+
+            //Services
+            services.AddTransient<MovieService>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MovieProject1", Version = "v1" });
@@ -54,6 +70,7 @@ namespace MovieProject1
             {
                 endpoints.MapControllers();
             });
+            AppDbInitializer.Seed(app);
         }
     }
 }
