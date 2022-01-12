@@ -1,0 +1,36 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<div class="container">
+
+<div class="card">
+    <article class="card-body">
+        <h4 class="card-title text-center mb-4 mt-1">Sign in</h4>
+        <hr>
+        <p class="text-success text-center">Login form</p>
+        <form class = "form-signin" #loginForm = "ngForm" (ngSubmit) = "login(loginForm)">
+        <div class="form-group">
+            <div *ngIf = "invalidLogin" class="alert alert-danger">Netocno ime ili lozinka</div>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+             </div>
+            <input name="username" ngModel class="form-control" placeholder="Username" type="username" required>
+        </div> 
+        </div> 
+        <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+             </div>
+            <input class="form-control" name="password" ngModel placeholder="******" type="password">
+        </div> 
+        </div>
+        <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block"> Login  </button>
+        </div>
+        <p class="text-center">Make your account <a class="link active" routerLink="/registration">HERE</a></p>
+        </form>
+    </article>
+    </div>
+
+</div>
+<router-outlet></router-outlet>

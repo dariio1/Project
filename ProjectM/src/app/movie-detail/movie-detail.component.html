@@ -1,0 +1,35 @@
+
+<br>
+<div class="container">
+<div class="row">
+    <div class="col-md-4">
+        <img id = "img1" src = "{{details.Poster}}" >
+    </div>
+    <div class="col-md-8">
+        <h2>{{details.Title}}</h2>
+        <hr>
+        <ul class="list-group">
+            <li class="list-group-item"><strong>Genre: </strong>{{details.Genre}}</li>
+            <li class="list-group-item"><strong>Released: </strong>{{details.Released}}</li>
+            <li class="list-group-item"><strong>Country: </strong>{{details.Country}}</li>
+            <li class="list-group-item"><strong>IMDB Rating: </strong>{{details.imdbRating}}</li>
+            <li class="list-group-item"><strong>Director: </strong>{{details.Director}}</li>
+            <li class="list-group-item"><strong>Actors: </strong>{{details.Actors}}</li>
+            <br>
+            <li><button class="btn btn-primary btn-md " (click) = "akcija()" >Favorit </button></li>
+            <li><button class="btn btn-primary btn-md " (click) = "getId()" >imdb </button></li>
+        </ul>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="well">
+        <h3>Plot</h3>
+        {{details.Plot}}
+        <hr>
+        <a href = "https://www.imdb.com/title/{{id}}" target="_blank" class = "btn btn-primary">IMDB</a> | 
+        
+        <button class="btn btn-primary btn-md" routerLink="/movielist" >Back </button>
+    </div>
+</div>
+</div>

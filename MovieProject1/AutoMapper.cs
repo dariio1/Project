@@ -24,6 +24,9 @@ namespace MovieProject1
                 dest.Lastname,
                 opt => opt.MapFrom(src => src.Lname));
 
+            // MovieInput -> MovieDb
+            CreateMap<ClassMap, Class>();
+
         }
     }
 }

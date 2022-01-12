@@ -1,0 +1,19 @@
+<p>favorites works!</p>
+
+<div class="container">
+    <button class="btn btn-outline-primary mr-2" (click)="prva()" >BTN</button>
+
+    <div class="row">
+
+        <div *ngFor = "let p of list" class = "col-lg-2 mt-3 mb-3">
+            <div class="card" style="width: 11rem;">
+                <h2></h2>
+
+                <button class="btn btn-primary btn-sm" >Ukloni</button>
+
+            </div>
+        
+        </div>
+        
+    </div>
+</div>

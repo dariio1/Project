@@ -32,13 +32,14 @@ namespace MovieProject1.Controllers
 
 
         [HttpPost("add")]
-        public IActionResult AddUser([FromBody] UserRegistration user)
+        public IActionResult AddUser(UserRegistration user)
         {
             _userService.AddUser(user);
             return Ok();
         }
 
         [HttpGet("get_all")]
+        [Authorize]
         public IActionResult GetAll()
         {
             var all = _userService.GetAllUsers();
@@ -46,6 +47,7 @@ namespace MovieProject1.Controllers
         }
 
         [HttpGet("get_one_by_Id/{id}")]
+
         public IActionResult GetOne(int id)
         {
             var one = _userService.GetById(id);
@@ -58,15 +60,16 @@ namespace MovieProject1.Controllers
             var updated = _userService.UpdateById(id, user);
             return Ok(updated);
         }
-
+      
         [HttpDelete("delete/{id}")]
+        [Authorize]
         public IActionResult DeleteOne(int id)
         {
             _userService.Delete(id);
             return Ok();
 
-
         }
+
 
     }
 

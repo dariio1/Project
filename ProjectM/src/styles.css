@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+input.invalid{
+    border-color:  red;
+}
+  #img1 {
+    border: 6px solid rgb(78, 78, 78);
+  }
+  .fa:hover { 
+    color: blue
+}

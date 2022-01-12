@@ -26,7 +26,7 @@ namespace MovieProject1.Data.Service
 
             // validate
             if (user == null || user.Password != model.Password)
-                throw new AppException("Username or password is incorrect");
+                throw new ApplicationException("Username or password is incorrect");
 
             // authentication successful
             var response = _mapper.Map<LoginResponse>(user);
@@ -37,7 +37,7 @@ namespace MovieProject1.Data.Service
         public void AddUser(UserRegistration user)
         {
             if (_db.Users.Any(x => x.Username == user.Username))
-                throw new ApplicationException("Korisničko ime" + user.Username + " je zauzeto");
+                throw new ApplicationException("Korisničko ime '" + user.Username + "' je zauzeto");
             var _user = _mapper.Map<User>(user); 
             _user = new User()
             {
@@ -70,8 +70,11 @@ namespace MovieProject1.Data.Service
                 _mapper.Map(user, _user);
                 _db.SaveChanges();
             }
+
+
             return _user;
         }
+
         public void Delete(int id)
         {
             var _user = _db.Users.FirstOrDefault(n => n.Id == id);
@@ -82,6 +85,70 @@ namespace MovieProject1.Data.Service
             }
 
         }
+        ///Favorite
+
+        public User AddFavorites(int id, FavoriteV user)
+        {
+            var _user = _db.Users.FirstOrDefault(n => n.Id == id);
+            foreach (var idd in user.MovieIDs)
+            {
+                var favorites = new Favorite()
+                {
+                    UserId = id,
+                    MovieId = idd
+                };
+                if (_db.Favorites.Any(x => x.UserId == id && x.MovieId == idd))
+                    throw new ApplicationException("Ima vec");
+                _db.Favorites.Add(favorites);
+                _db.SaveChanges();
+            }
+            return _user;
+
+        }
+        public void AddFavorite(int id, int id2)
+        {
+            var _user = _db.Users.FirstOrDefault(n => n.Id == id);
+            var favorites = new Favorite()
+            {
+                UserId = id,
+                MovieId = id2
+            };
+            //if (_db.Favorites.Any(x => x.UserId == id && x.MovieId == id2))
+            //    throw new ApplicationException("Ima vec");
+            _db.Favorites.Add(favorites);
+            _db.SaveChanges();
+
+
+
+        }
+
+        public FavoriteVM GetUserMovies(int Id)
+        {
+
+            var favorite = _db.Users.Where(n => n.Id == Id).Select(movies => new FavoriteVM()
+            {
+               MovieIDs = movies.Favorites.Select(n => n.Class.Id).ToList(),
+               MovieIMDB = movies.Favorites.Select(n => n.Class.ImdbId).ToList(),
+               Title = movies.Favorites.Select(n => n.Class.Title).ToList(),
+               Poster = movies.Favorites.Select(n => n.Class.Poster).ToList()
+
+            }).FirstOrDefault();
+
+
+            return favorite;
+        }
+
+        public void DeleteFav(int id, int mId)
+        {
+            var _favorite = _db.Favorites.FirstOrDefault(n => n.UserId == id && n.MovieId == mId);
+            if (_favorite != null)
+            {
+                _db.Favorites.Remove(_favorite);
+                _db.SaveChanges();
+            }
+            else throw new ApplicationException("Nevalja");
+        }
+
 
     }
 }

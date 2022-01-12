@@ -1,0 +1,36 @@
+<p style="text-align:center">Ovdje mozete pretrazivati filmove</p>
+<br>
+<div class="container">
+        <div class="row">
+            <div class="col-3">
+                <input class ="form-control-lg" placeholder="Type name" type = "text" 
+                name = "Search" #search (keyup.enter)="getValue(search.value)">
+            </div>
+            <div class="col-1">
+                <button class="btn btn-primary btn-lg" (click) = "getValue(search.value)" >Search</button>
+            </div>
+        </div>
+
+
+    <div class="row">
+
+        <div *ngFor = "let d of movieSrc.Search" class = "col-lg-3 mt-3 mb-3">
+            <div class="box">
+
+                <img src = "{{d.Poster}}" width = 100%>
+                <h4>{{d.Title}}</h4>
+                <p>{{d.Year}}</p>
+                <button class="btn btn-primary btn-sm" (click) = "funkcija(d)" routerLink="/moviedetail/{{d.imdbID}}" >Pogledaj detalje</button>
+
+            </div>
+        
+        </div>
+        
+    </div>
+    
+</div>
+<router-outlet></router-outlet>
+
+
+
+

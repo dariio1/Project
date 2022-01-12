@@ -14,5 +14,27 @@ namespace MovieProject1.Data.Model.ViewModels
         public string Lname { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+
+    }
+
+    public class FavoriteVM
+    {
+        public List<int> MovieIDs { get; set; }
+        public List<string> MovieIMDB { get; set; }
+        public List<string> Title { get; set; }
+        public List<string> Poster { get; set; }
+    }
+    public class FavoriteV
+    {
+        public List<int> MovieIDs { get; set; }
+
+    }
+
+    public class FavoriteVMC
+    {
+        public int MovieIDs { get; set; }
+        public string MovieIMDB { get; set; }
+        public string Title { get; set; }
+        public string Poster { get; set; }
     }
 }

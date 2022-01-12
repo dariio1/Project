@@ -21,48 +21,36 @@ namespace MovieProject1.Data.Service
         }
         public string GenerateToken(User user)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
+            /* var tokenHandler = new JwtSecurityTokenHandler();
+             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+             var tokenDescriptor = new SecurityTokenDescriptor
+             {
+                 Subject = new ClaimsIdentity(new Claim[] { new Claim("Id", user.Id.ToString()),
+                                                            new Claim("Username", user.Username.ToString())}),
+                 Expires = DateTime.UtcNow.AddMinutes(5),
+                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+             };
+             var Securitytoken = tokenHandler.CreateToken(tokenDescriptor);
+             var token = tokenHandler.WriteToken(Securitytoken);
+             return token;*/
+
+            var claims = new List<Claim>
             {
-                Subject = new ClaimsIdentity(new Claim[] { new Claim("Id", user.Id.ToString()) }),
-                Expires = DateTime.UtcNow.AddMinutes(5),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                new Claim("username", user.Username.ToString()),
+                new Claim("id", user.Id.ToString())
             };
-            var Securitytoken = tokenHandler.CreateToken(tokenDescriptor);
-            var token = tokenHandler.WriteToken(Securitytoken);
-            return token;
+            var secretKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_appSettings.Secret));
+            var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+            var tokenOptions = new JwtSecurityToken(
+                issuer: "http://localhost:44384",
+                audience: "http://localhost:44384",
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(7),
+                signingCredentials: signingCredentials
+                );
+            var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+            return tokenString;
         }
 
-        //public int? ValidateToken(string token)
-        //{
-        //    if (token == null)
-        //        return null;
-
-        //    var tokenHandler = new JwtSecurityTokenHandler();
-        //    var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-        //    try
-        //    {
-        //        tokenHandler.ValidateToken(token, new TokenValidationParameters
-        //        {
-        //            ValidateIssuerSigningKey = true,
-        //            IssuerSigningKey = new SymmetricSecurityKey(key),
-        //            ValidateIssuer = false,
-        //            ValidateAudience = false,
-        //            ClockSkew = TimeSpan.Zero
-        //        }, out SecurityToken validatedToken);
-
-        //        var jwtToken = (JwtSecurityToken)validatedToken;
-        //        var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
-
-        //        // return user id from JWT token if validation successful
-        //        return userId;
-        //    }
-        //    catch
-        //    {
-        //        // return null if validation fails
-        //        return null;
-        //    }
-        //}
     }
 }
