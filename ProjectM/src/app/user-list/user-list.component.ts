@@ -68,7 +68,7 @@ openDelete(targetModal,  user) {
     size: 'lg'
   });
 }
-kurac(){
+krc(){
   this.service.deleteUser(this.deleteId).subscribe(data =>{
     this.toastr.error('User deleted', 'Deleted');
     this.funkcija();

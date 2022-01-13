@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { ApiserviceService } from '../service/apiservice.service';
 import { FavoriteserviceService } from '../service/favoriteservice.service';
 
@@ -13,7 +14,8 @@ export class MovieDetailComponent implements OnInit {
 
   constructor(private _Activatedroute:ActivatedRoute,
               private _Apiservice: ApiserviceService,
-              private service: FavoriteserviceService) { }
+              private service: FavoriteserviceService, 
+              private jwtHelper : JwtHelperService) { }
 sub;
 id;
 imdb: any;
@@ -48,8 +50,8 @@ akcija(){
   this.get();
   console.log(this.idd); 
   console.log("id: " + typeof(this.idd))
-  console.log("imdb: " + typeof(this.imdb)) 
   console.log(this.imdb);
+  console.log("imdb: " + typeof(this.imdb)) 
     this.service.addFavorite(this.idd, this.imdb).subscribe(data =>{
       console.log(data)
     },error => {
