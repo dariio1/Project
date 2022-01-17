@@ -55,6 +55,7 @@ namespace MovieProject1.Controllers
         }
 
         [HttpPut("edit_user/{id}")]
+        [Authorize(Roles = "Administrator")]
         public IActionResult UpdateById(int id, UserUpdate user)
         {
             var updated = _userService.UpdateById(id, user);
@@ -62,7 +63,7 @@ namespace MovieProject1.Controllers
         }
       
         [HttpDelete("delete/{id}")]
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public IActionResult DeleteOne(int id)
         {
             _userService.Delete(id);

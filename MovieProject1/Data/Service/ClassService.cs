@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using MovieProject1.Data.Model;
 using MovieProject1.Data.Model.ViewModels;
 using System;
@@ -23,7 +24,7 @@ namespace MovieProject1.Data.Service
             if (_db.Class.Any(x => x.Title == movie.Title))
                 throw new ApplicationException("Ima vec");
             var _movie = _mapper.Map<Class>(movie);
-           
+
             _movie = new Class()
             {
                 Title = movie.Title,
@@ -51,5 +52,7 @@ namespace MovieProject1.Data.Service
 
         public Class GetByImdb(string Imdb) => _db.Class.FirstOrDefault(n => n.ImdbId == Imdb);
         public Class GetById(int Id) => _db.Class.FirstOrDefault(n => n.Id == Id);
+
+
     }
 }

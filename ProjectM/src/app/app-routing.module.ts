@@ -13,11 +13,11 @@ import { FavoritesComponent } from './favorites/favorites.component';
 const routes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: 'movielist', component: MovielistComponent, canActivate : [GuardComponent] },
-  { path: 'userlist', component: UserListComponent},
+  { path: 'userlist', component: UserListComponent, canActivate : [GuardComponent] },
   { path: 'moviedetail/:id', component: MovieDetailComponent},
   { path: 'login', component: LoginComponent},
   { path: 'movies', component: MoviesDbComponent},
-  { path: 'favorit', component: FavoritesComponent}
+  { path: 'favorit', component: FavoritesComponent, canActivate : [GuardComponent] }
 
 ];
 

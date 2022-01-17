@@ -15,6 +15,8 @@ namespace MovieProject1.Data.Model
         public string Email { get; set; }
         public string Password { get; set; }
         public DateTime DateOfReg { get; set; }
+        public string Role { get; set; }
         public List<Favorite> Favorites { get; set; }
+
     }
 }

@@ -1,18 +1,19 @@
 
-<p>User List</p>
+<div class="container">
 
 <table class="table table-striped">
     <thead class="thead-light">
         <tr>
             <th>Id</th>
             <th>Username</th>
-            <th>Name</th>
-            <th>Lastname</th>
+            <th>Ime</th>
+            <th>Prezime</th>
             <th>Email</th>
-            <th>Date of registration</th>
-            <th></th>
+            <th>Datum registracije</th>
+            <th>Uloga</th>
         </tr>
     </thead>
+    <br>
     <tbody>
         <tr *ngFor = "let us of list">
             <td>{{us.id}}</td>
@@ -21,6 +22,7 @@
             <td>{{us.lastname}}</td>
             <td>{{us.email}}</td>
             <td>{{us.dateOfReg}}</td>
+            <td>{{us.role}}</td>
             <td>
               <i class = "far fa-edit fa-lg" (click) = "openEdit(content, us)"></i>
             </td>
@@ -30,12 +32,13 @@
         </tr>
     </tbody>
 </table>
+</div>
 <button class="btn btn-outline-primary mr-2" (click)="pokusaj()" >BTN</button>
 
 <!--EditPop-->
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Edit user</h4>
+    <h4 class="modal-title" id="modal-basic-title">Uredi korisnika</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -49,13 +52,13 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="name">Name</label>
+    <label for="name">Ime</label>
     <div class="input-group">
       <input id = "name" formControlName="name" class="form-control">
     </div>
   </div>
   <div class="form-group">
-    <label for="lastname">Lastname</label>
+    <label for="lastname">Prezime</label>
     <div class="input-group">
       <input id = "lastname" formControlName="lastname" class="form-control">
     </div>
@@ -67,12 +70,18 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="password">Password</label>
+    <label for="password">Lozinka</label>
     <div class="input-group">
       <input id = "password" formControlName="password" class="form-control">
     </div>
   </div>
-  <div class="border text-center"> <button data-dismiss="modal" class="btn btn-info" (click) = "realEdit()">Save Changes</button> </div>
+  <div class="form-group">
+    <label for="role">Uloga</label>
+    <div class="input-group">
+      <input id = "role" formControlName="role" class="form-control">
+    </div>
+  </div>
+  <div class="border text-center"> <button data-dismiss="modal" class="btn btn-info" (click) = "realEdit()">Spremi promjene</button> </div>
 </form>
   </div>
 </ng-template>
@@ -81,20 +90,20 @@
 
   <ng-template #contentDelete let-modal>
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-title">Profile deletion</h4>
+      <h4 class="modal-title" id="modal-title">Brisanje korisnika</h4>
       <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-      <p><strong>Are you sure you want to delete <span class="text-primary">"user.name"</span> profile?</strong></p>
-      <p>All information associated to this user profile will be permanently deleted.
-      <span class="text-danger">This operation can not be undone.</span>
+      <p><strong>Jeste li sigurni da želite ukloniti korisnika?</strong></p>
+      <p>Sve informacije povezane s ovim profilom bit će trajno izbrisane!
+      <span class="text-danger">Ova operacije se ne može poništiti!</span>
       </p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
-      <button type="button" class="btn btn-danger" (click)="krc()">Delete</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Odustani</button>
+      <button type="button" class="btn btn-danger" (click)="krc()">Obriši</button>
     </div>
   </ng-template>
 

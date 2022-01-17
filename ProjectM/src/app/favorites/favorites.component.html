@@ -1,15 +1,15 @@
-<p>favorites works!</p>
 
 <div class="container">
-    <button class="btn btn-outline-primary mr-2" (click)="prva()" >BTN</button>
 
     <div class="row">
 
-        <div *ngFor = "let p of list" class = "col-lg-2 mt-3 mb-3">
-            <div class="card" style="width: 11rem;">
-                <h2></h2>
-
-                <button class="btn btn-primary btn-sm" >Ukloni</button>
+        <div *ngFor = "let d of empList" class = "col-lg-3 mt-2 mb-3">
+            <div class="card" style="width: 16rem;">
+                
+                    <h4>{{d.title}}</h4>
+                    <img src = "{{d.poster}}" width = 100%>
+                    <a href = "https://www.imdb.com/title/{{d.imdb}}" target="_blank" class = "btn btn-primary">IMDB</a>
+                    <button class="btn btn-danger btn-md mr-3" (click) = "delete(d.aa)" >Ukloni </button>
 
             </div>
         

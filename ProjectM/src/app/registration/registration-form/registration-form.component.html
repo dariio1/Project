@@ -7,12 +7,12 @@
         name = "Username" [value] = "service.formData.Username" #Username = "ngModel" [(ngModel)] = "service.formData.Username"
         required [class.invalid] = "Username.invalid && Username.touched">
 
-        <label><strong>Name: </strong></label>
+        <label><strong>Ime: </strong></label>
         <input class = "form-control form-control-lg" placeholder="Name"
         name = "Name" #Name = "ngModel" [(ngModel)] = "service.formData.Name"
         required [class.invalid] = "Name.invalid && Name.touched">
 
-        <label><strong>Lastname: </strong> </label>
+        <label><strong>Prezime: </strong> </label>
         <input class = "form-control form-control-lg" placeholder="Lastname"
         name = "Lastname" #Lastname = "ngModel" [(ngModel)] = "service.formData.Lastname"
         required [class.invalid] = "Lastname.invalid && Lastname.touched">
@@ -22,7 +22,7 @@
         name = "Email" #Email = "ngModel" [(ngModel)] = "service.formData.Email"
         required [class.invalid] = "Email.invalid && Email.touched">
 
-        <label><strong>Password: </strong></label>
+        <label><strong>Lozinka: </strong></label>
         <input type="password" class = "form-control form-control-lg" placeholder="Password"
         name = "Password" #Password = "ngModel" [(ngModel)] = "service.formData.Password"
         required [class.invalid] = "Password.invalid && Password.touched">
@@ -30,7 +30,7 @@
     </div>
     <br>
     <div class="form-gruop">
-        <button class="btn btn-info btn-lg btn-block" type="submit" [disabled]="form.invalid">SUBMIT</button>        
+        <button class="btn btn-info btn-lg btn-block" type="submit" [disabled]="form.invalid">Registriraj se</button>        
     </div>
 
 </form>

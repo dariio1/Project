@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -40,8 +40,11 @@ export class ApiserviceService {
   }
 
   deleteMovie(id : number) : Observable<any>{
-    return this.http.delete("https://localhost:44384/api/Class/delete/" + id)
+    let httpOptions = new HttpHeaders()
+    .set('Authorization', 'Bearer ' + localStorage.getItem("jwt"));
+    return this.http.delete("https://localhost:44384/api/Class/delete/" + id, { headers: httpOptions })
   }
+
   getById(id : number) : Observable<any>{
     return this.http.get("https://localhost:44384/api/Class/get_by_id/" + id)
   }

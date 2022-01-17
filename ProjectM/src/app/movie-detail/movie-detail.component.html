@@ -9,12 +9,12 @@
         <h2>{{details.Title}}</h2>
         <hr>
         <ul class="list-group">
-            <li class="list-group-item"><strong>Genre: </strong>{{details.Genre}}</li>
-            <li class="list-group-item"><strong>Released: </strong>{{details.Released}}</li>
-            <li class="list-group-item"><strong>Country: </strong>{{details.Country}}</li>
+            <li class="list-group-item"><strong>Žanr: </strong>{{details.Genre}}</li>
+            <li class="list-group-item"><strong>Prikazan: </strong>{{details.Released}}</li>
+            <li class="list-group-item"><strong>Država: </strong>{{details.Country}}</li>
             <li class="list-group-item"><strong>IMDB Rating: </strong>{{details.imdbRating}}</li>
-            <li class="list-group-item"><strong>Director: </strong>{{details.Director}}</li>
-            <li class="list-group-item"><strong>Actors: </strong>{{details.Actors}}</li>
+            <li class="list-group-item"><strong>Redatelj: </strong>{{details.Director}}</li>
+            <li class="list-group-item"><strong>Glumci: </strong>{{details.Actors}}</li>
             <br>
             <li><button class="btn btn-primary btn-md " (click) = "akcija()" >Favorit </button></li>
         </ul>
@@ -23,12 +23,12 @@
 <br>
 <div class="row">
     <div class="well">
-        <h3>Plot</h3>
+        <h3>Radnja filma</h3>
         {{details.Plot}}
         <hr>
         <a href = "https://www.imdb.com/title/{{id}}" target="_blank" class = "btn btn-primary">IMDB</a> | 
         
-        <button class="btn btn-primary btn-md" routerLink="/movielist" >Back </button>
+        <button class="btn btn-primary btn-md" routerLink="/movielist" >Natrag </button>
     </div>
 </div>
 </div>

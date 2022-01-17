@@ -36,7 +36,9 @@ export class RegistrationService {
   }
 
   postEdit(id : number, user: any) : Observable<any>{
-    return this.http.put(this.Base + "edit_user/" + id, user);
+    let httpOptions = new HttpHeaders()
+    .set('Authorization', 'Bearer ' + localStorage.getItem("jwt"));
+    return this.http.put(this.Base + "edit_user/" + id, user, { headers: httpOptions });
   }
 
   login(user:any) : Observable<any>{

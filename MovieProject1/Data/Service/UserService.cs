@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using MovieProject1.Data.Model;
 using MovieProject1.Data.Model.ViewModels;
 using System;
@@ -38,7 +39,7 @@ namespace MovieProject1.Data.Service
         {
             if (_db.Users.Any(x => x.Username == user.Username))
                 throw new ApplicationException("Korisničko ime '" + user.Username + "' je zauzeto");
-            var _user = _mapper.Map<User>(user); 
+            var _user = _mapper.Map<User>(user);
             _user = new User()
             {
                 Username = user.Username,
@@ -46,7 +47,8 @@ namespace MovieProject1.Data.Service
                 Lastname = user.Lastname,
                 Email = user.Email,
                 Password = user.Password,
-                DateOfReg = DateTime.Now
+                DateOfReg = DateTime.Now,
+                Role = "Korisnik"
 
             };
             _db.Users.Add(_user);
@@ -66,6 +68,7 @@ namespace MovieProject1.Data.Service
                 _user.Lastname = user.Lname;
                 _user.Email = user.Email;
                 _user.Password = user.Password;
+                _user.Role = user.Role;
 
                 _mapper.Map(user, _user);
                 _db.SaveChanges();
@@ -105,7 +108,7 @@ namespace MovieProject1.Data.Service
             return _user;
 
         }
-        public void AddFavorite(int id, int id2)
+        public void AddFavorite([FromRoute] int id, [FromBody] int id2)
         {
             var _user = _db.Users.FirstOrDefault(n => n.Id == id);
             var favorites = new Favorite()
@@ -113,12 +116,10 @@ namespace MovieProject1.Data.Service
                 UserId = id,
                 MovieId = id2
             };
-            //if (_db.Favorites.Any(x => x.UserId == id && x.MovieId == id2))
-            //    throw new ApplicationException("Ima vec");
+            if (_db.Favorites.Any(x => x.UserId == id && x.MovieId == id2))
+                throw new ApplicationException("Ima vec");
             _db.Favorites.Add(favorites);
             _db.SaveChanges();
-
-
 
         }
 
@@ -127,7 +128,8 @@ namespace MovieProject1.Data.Service
 
             var favorite = _db.Users.Where(n => n.Id == Id).Select(movies => new FavoriteVM()
             {
-               MovieIDs = movies.Favorites.Select(n => n.Class.Id).ToList(),
+                Idd = movies.Favorites.Select(n => n.Id).ToList(),
+                MovieIDs = movies.Favorites.Select(n => n.Class.Id).ToList(),
                MovieIMDB = movies.Favorites.Select(n => n.Class.ImdbId).ToList(),
                Title = movies.Favorites.Select(n => n.Class.Title).ToList(),
                Poster = movies.Favorites.Select(n => n.Class.Poster).ToList()
@@ -138,15 +140,19 @@ namespace MovieProject1.Data.Service
             return favorite;
         }
 
-        public void DeleteFav(int id, int mId)
+        public void DeleteFav(int id)
         {
-            var _favorite = _db.Favorites.FirstOrDefault(n => n.UserId == id && n.MovieId == mId);
+            var _favorite = _db.Favorites.FirstOrDefault(n => n.Id == id);
             if (_favorite != null)
             {
                 _db.Favorites.Remove(_favorite);
                 _db.SaveChanges();
             }
-            else throw new ApplicationException("Nevalja");
+        }
+        public Favorite GetId(int Id, int Idm)
+        {
+            var _favorite = _db.Favorites.FirstOrDefault(n => n.UserId == Id && n.MovieId == Idm);
+            return _favorite;
         }
 
 

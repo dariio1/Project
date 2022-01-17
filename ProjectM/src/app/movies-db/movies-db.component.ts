@@ -30,10 +30,21 @@ export class MoviesDbComponent implements OnInit {
 
   brisi(id){
     this.service.deleteMovie(id).subscribe(data =>{
-      this.toastr.error('Movie deleted', 'Delete');
+      this.toastr.error('Film uklonjen iz baze', 'Deleted');
       this.pocetna();
     },error =>{
         console.log(error);
+        this.toastr.error('Zabranjen pristup', 'Greška');
       })
   }
+  funkcija(cred){
+    this.service.boban(cred).subscribe(
+      res => {
+        console.log("odeee");
+  
+      },
+      err => {console.log(err);}
+    );
+  }
 }
+

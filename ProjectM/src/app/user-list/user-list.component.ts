@@ -26,7 +26,8 @@ editForm : FormGroup;
       name: [''],
       lastname: [''],
       email: [''],
-      password: ['']
+      password: [''],
+      role: ['']
     } );
     
   }
@@ -34,7 +35,7 @@ editForm : FormGroup;
  
   funkcija(){
     this.service.getUsers().subscribe(data =>{
-      //console.log(data)
+      console.log(data)
       this.list = data ;
     },error => {
       console.log(error);
@@ -70,11 +71,12 @@ openDelete(targetModal,  user) {
 }
 krc(){
   this.service.deleteUser(this.deleteId).subscribe(data =>{
-    this.toastr.error('User deleted', 'Deleted');
+    this.toastr.error('Korisnik je izbrisan', 'Deleted');
     this.funkcija();
     this._modalService.dismissAll();
   },error =>{
       console.log(error);
+      this.toastr.warning('Zabranjen pristup', 'Upozorenje');
     })
 }
 ID : number;
@@ -91,17 +93,23 @@ openEdit(targetModal, user) {
   name: user.name,
   lastname: user.lastname,
   email: user.email,
-  password: user.password
+  password: user.password,
+  role: user.role,
 });
 }
 
 realEdit(){
   this.service.postEdit(this.ID, this.editForm.value).subscribe(data => {
-    this.toastr.warning('User edited', 'Edit');
+    this.toastr.warning('Promjene su spremljene', 'Edited');
     this.funkcija();
     this._modalService.dismissAll();
-  });    
-}
+  },error =>{
+      console.log(error);
+      this.toastr.warning('Zabranjen pristup', 'Upozorenje');
+    })
+  };    
+
+
 
 
 

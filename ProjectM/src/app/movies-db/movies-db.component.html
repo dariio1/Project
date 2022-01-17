@@ -9,7 +9,8 @@
                 <img src = "{{d.poster}}" width = 100%>
                 <h4>{{d.title}}</h4>
                 <!--<p>{{d.imdbId}}</p>-->
-                <button class="btn btn-primary btn-sm" (click) = "brisi(d.id)">Ukloni</button>
+                <button class="btn btn-primary btn-sm" (click) = "funkcija(d)" routerLink="/moviedetail/{{d.imdbID}}" >Pogledaj detalje</button>
+                <button class="btn btn-danger btn-sm" (click) = "brisi(d.id)">Ukloni</button>
 
             </div>
         

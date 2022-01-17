@@ -37,7 +37,9 @@ namespace MovieProject1.Data.Service
             var claims = new List<Claim>
             {
                 new Claim("username", user.Username.ToString()),
-                new Claim("id", user.Id.ToString())
+                new Claim("id", user.Id.ToString()),
+                new Claim(ClaimTypes.Role, user.Role.ToString()),
+
             };
             var secretKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_appSettings.Secret));
             var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);

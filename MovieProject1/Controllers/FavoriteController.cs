@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieProject1.Data.Model.ViewModels;
 using MovieProject1.Data.Service;
@@ -23,9 +24,9 @@ namespace MovieProject1.Controllers
 
 
         [HttpPut("add_favorite/{id}")]
-        public IActionResult AddFavorite(int id, int id2)
+        public IActionResult AddFavorite([FromRoute] int id, [FromBody] int id2)
         {
-            _userService.AddFavorite(id!, id2!);
+            _userService.AddFavorite(id, id2);
             return Ok();
 
         }
@@ -38,18 +39,27 @@ namespace MovieProject1.Controllers
 
         [HttpGet("get_user_movies/{id}")]
 
-        public IActionResult GetUserM(int id)
+        public IActionResult GetUserM( int id)
         {
             var one = _userService.GetUserMovies(id);
             return Ok(one);
         }
 
-        [HttpDelete("delete/{id}")]
-        public IActionResult DeleteFavorite(int id, int mId)
+        [HttpDelete("remove/{id}")]
+        [Authorize]
+        public IActionResult DeleteFavorite(int id)
         {
-            _userService.DeleteFav(id, mId);
+            _userService.DeleteFav(id);
             return Ok();
 
+        }
+
+        [HttpGet("get_id/{id}")]
+
+        public IActionResult GetId( int id,int Idm)
+        {
+            var one = _userService.GetId(id, Idm);
+            return Ok(one);
         }
     }
 }

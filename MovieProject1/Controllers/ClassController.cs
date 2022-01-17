@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieProject1.Data.Model.ViewModels;
 using MovieProject1.Data.Service;
@@ -29,6 +30,7 @@ namespace MovieProject1.Controllers
 
 
         [HttpDelete("delete/{id}")]
+        [Authorize(Roles = "Administrator")]
         public IActionResult DeleteOne(int id)
         {
             _classService.Delete(id);
@@ -48,7 +50,7 @@ namespace MovieProject1.Controllers
         public IActionResult GetOneByImdb(string imdb)
         {
             var one  = _classService.GetByImdb(imdb);
-            return Ok(one.Id);
+            return Ok(one);
         }
 
 
@@ -58,5 +60,6 @@ namespace MovieProject1.Controllers
             var one = _classService.GetById(id);
             return Ok(one);
         }
+
     }
 }

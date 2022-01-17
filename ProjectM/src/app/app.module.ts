@@ -21,6 +21,7 @@ import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
 import { GuardComponent } from './guard/guard.component';
 import { MoviesDbComponent } from './movies-db/movies-db.component';
+import { FavoritesComponent } from './favorites/favorites.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -35,7 +36,8 @@ export function tokenGetter() {
     UserListComponent,
     MovieDetailComponent,
     LoginComponent,
-    MoviesDbComponent
+    MoviesDbComponent,
+    FavoritesComponent
     
   ],
   imports: [
